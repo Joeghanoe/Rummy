@@ -1,0 +1,418 @@
+[
+    {
+        "suit": "clubs",
+        "card": "ace",
+        "number": 0,
+        "tile": 0,
+        "offsetX": 0,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "clubs",
+        "card": "two",
+        "number": 1,
+        "tile": 1,
+        "offsetX": 0.07692307692307693,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "clubs",
+        "card": "three",
+        "number": 2,
+        "tile": 2,
+        "offsetX": 0.15384615384615385,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "clubs",
+        "card": "four",
+        "number": 3,
+        "tile": 3,
+        "offsetX": 0.23076923076923078,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "clubs",
+        "card": "five",
+        "number": 4,
+        "tile": 4,
+        "offsetX": 0.3076923076923077,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "clubs",
+        "card": "six",
+        "number": 5,
+        "tile": 5,
+        "offsetX": 0.38461538461538464,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "clubs",
+        "card": "seven",
+        "number": 6,
+        "tile": 6,
+        "offsetX": 0.46153846153846156,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "clubs",
+        "card": "eight",
+        "number": 7,
+        "tile": 7,
+        "offsetX": 0.5384615384615384,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "clubs",
+        "card": "nine",
+        "number": 8,
+        "tile": 8,
+        "offsetX": 0.6153846153846154,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "clubs",
+        "card": "ten",
+        "number": 9,
+        "tile": 9,
+        "offsetX": 0.6923076923076923,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "clubs",
+        "card": "jack",
+        "number": 10,
+        "tile": 10,
+        "offsetX": 0.7692307692307693,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "clubs",
+        "card": "queen",
+        "number": 11,
+        "tile": 11,
+        "offsetX": 0.8461538461538461,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "clubs",
+        "card": "king",
+        "number": 12,
+        "tile": 12,
+        "offsetX": 0.9230769230769231,
+        "offsetY": 0.75
+    },
+    {
+        "suit": "diamonds",
+        "card": "ace",
+        "number": 0,
+        "tile": 13,
+        "offsetX": 0,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "diamonds",
+        "card": "two",
+        "number": 1,
+        "tile": 14,
+        "offsetX": 0.07692307692307693,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "diamonds",
+        "card": "three",
+        "number": 2,
+        "tile": 15,
+        "offsetX": 0.15384615384615385,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "diamonds",
+        "card": "four",
+        "number": 3,
+        "tile": 16,
+        "offsetX": 0.23076923076923078,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "diamonds",
+        "card": "five",
+        "number": 4,
+        "tile": 17,
+        "offsetX": 0.3076923076923077,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "diamonds",
+        "card": "six",
+        "number": 5,
+        "tile": 18,
+        "offsetX": 0.38461538461538464,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "diamonds",
+        "card": "seven",
+        "number": 6,
+        "tile": 19,
+        "offsetX": 0.46153846153846156,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "diamonds",
+        "card": "eight",
+        "number": 7,
+        "tile": 20,
+        "offsetX": 0.5384615384615384,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "diamonds",
+        "card": "nine",
+        "number": 8,
+        "tile": 21,
+        "offsetX": 0.6153846153846154,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "diamonds",
+        "card": "ten",
+        "number": 9,
+        "tile": 22,
+        "offsetX": 0.6923076923076923,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "diamonds",
+        "card": "jack",
+        "number": 10,
+        "tile": 23,
+        "offsetX": 0.7692307692307693,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "diamonds",
+        "card": "queen",
+        "number": 11,
+        "tile": 24,
+        "offsetX": 0.8461538461538461,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "diamonds",
+        "card": "king",
+        "number": 12,
+        "tile": 25,
+        "offsetX": 0.9230769230769231,
+        "offsetY": 0.5
+    },
+    {
+        "suit": "spades",
+        "card": "ace",
+        "number": 0,
+        "tile": 26,
+        "offsetX": 0,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "spades",
+        "card": "two",
+        "number": 1,
+        "tile": 27,
+        "offsetX": 0.07692307692307693,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "spades",
+        "card": "three",
+        "number": 2,
+        "tile": 28,
+        "offsetX": 0.15384615384615385,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "spades",
+        "card": "four",
+        "number": 3,
+        "tile": 29,
+        "offsetX": 0.23076923076923078,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "spades",
+        "card": "five",
+        "number": 4,
+        "tile": 30,
+        "offsetX": 0.3076923076923077,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "spades",
+        "card": "six",
+        "number": 5,
+        "tile": 31,
+        "offsetX": 0.38461538461538464,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "spades",
+        "card": "seven",
+        "number": 6,
+        "tile": 32,
+        "offsetX": 0.46153846153846156,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "spades",
+        "card": "eight",
+        "number": 7,
+        "tile": 33,
+        "offsetX": 0.5384615384615384,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "spades",
+        "card": "nine",
+        "number": 8,
+        "tile": 34,
+        "offsetX": 0.6153846153846154,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "spades",
+        "card": "ten",
+        "number": 9,
+        "tile": 35,
+        "offsetX": 0.6923076923076923,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "spades",
+        "card": "jack",
+        "number": 10,
+        "tile": 36,
+        "offsetX": 0.7692307692307693,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "spades",
+        "card": "queen",
+        "number": 11,
+        "tile": 37,
+        "offsetX": 0.8461538461538461,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "spades",
+        "card": "king",
+        "number": 12,
+        "tile": 38,
+        "offsetX": 0.9230769230769231,
+        "offsetY": 0.25
+    },
+    {
+        "suit": "hearts",
+        "card": "ace",
+        "number": 0,
+        "tile": 39,
+        "offsetX": 0,
+        "offsetY": 0
+    },
+    {
+        "suit": "hearts",
+        "card": "two",
+        "number": 1,
+        "tile": 40,
+        "offsetX": 0.07692307692307693,
+        "offsetY": 0
+    },
+    {
+        "suit": "hearts",
+        "card": "three",
+        "number": 2,
+        "tile": 41,
+        "offsetX": 0.15384615384615385,
+        "offsetY": 0
+    },
+    {
+        "suit": "hearts",
+        "card": "four",
+        "number": 3,
+        "tile": 42,
+        "offsetX": 0.23076923076923078,
+        "offsetY": 0
+    },
+    {
+        "suit": "hearts",
+        "card": "five",
+        "number": 4,
+        "tile": 43,
+        "offsetX": 0.3076923076923077,
+        "offsetY": 0
+    },
+    {
+        "suit": "hearts",
+        "card": "six",
+        "number": 5,
+        "tile": 44,
+        "offsetX": 0.38461538461538464,
+        "offsetY": 0
+    },
+    {
+        "suit": "hearts",
+        "card": "seven",
+        "number": 6,
+        "tile": 45,
+        "offsetX": 0.46153846153846156,
+        "offsetY": 0
+    },
+    {
+        "suit": "hearts",
+        "card": "eight",
+        "number": 7,
+        "tile": 46,
+        "offsetX": 0.5384615384615384,
+        "offsetY": 0
+    },
+    {
+        "suit": "hearts",
+        "card": "nine",
+        "number": 8,
+        "tile": 47,
+        "offsetX": 0.6153846153846154,
+        "offsetY": 0
+    },
+    {
+        "suit": "hearts",
+        "card": "ten",
+        "number": 9,
+        "tile": 48,
+        "offsetX": 0.6923076923076923,
+        "offsetY": 0
+    },
+    {
+        "suit": "hearts",
+        "card": "jack",
+        "number": 10,
+        "tile": 49,
+        "offsetX": 0.7692307692307693,
+        "offsetY": 0
+    },
+    {
+        "suit": "hearts",
+        "card": "queen",
+        "number": 11,
+        "tile": 50,
+        "offsetX": 0.8461538461538461,
+        "offsetY": 0
+    },
+    {
+        "suit": "hearts",
+        "card": "king",
+        "number": 12,
+        "tile": 51,
+        "offsetX": 0.9230769230769231,
+        "offsetY": 0
+    }
+]
