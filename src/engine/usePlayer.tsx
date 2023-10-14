@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react';
-import { Card, PlayerState } from '../@types/game';
+import { useCallback, useMemo, useState } from 'react';
+import { Card, PlayerState, SubmittedCard } from '../@types/game';
 
 const getMessages = (playerName: string = "You") => {
     return {
@@ -27,7 +27,7 @@ export function usePlayer({
     const [state, setState] = useState<PlayerState>(defaultState);
     const [deck, setDeck] = useState<Card[]>([]);
     const [selected, setSelected] = useState<Card[]>([]);
-    const [submitted, setSubmitted] = useState<Card[]>([])
+    const [submitted, setSubmitted] = useState<SubmittedCard[]>([])
 
     const initializeDeck = useCallback((cards: Card[]) => [
         setDeck(cards)
@@ -110,16 +110,36 @@ export function usePlayer({
     }, [selected, deck, state])
 
     const playHand = useCallback((selected: Card[]) => {
-        setSubmitted((cards) => [...cards, ...selected])
+        setSubmitted((cards) => {
+            let hasBeenAdded = false;
+
+            const sets = cards.map((set) => {
+                if(set.cards.some((card) => selected.some((s) => s.tile === card.tile))) {
+                    hasBeenAdded = true;
+                    return {
+                        ...set,
+                        set: [...set.cards, ...selected]
+                    }
+                }
+                return set
+            })
+
+            if(hasBeenAdded) {
+                return sets;
+            }
+            
+            return [
+                ...sets,
+                {
+                    cards: selected
+                } as SubmittedCard
+            ]
+        })
         setSelected([]);
         setDeck((deck) => deck.filter((card) => !selected.includes(card)));
     }, [])
 
     const play = useCallback(() => {
-        if (selected.length < 3) {
-            return alert("You need to play at least 3 cards!");
-        }
-
         // if they are the same suit and can be sorted in order without any missing steps
         const isSameSuit = selected.every((card) => card.suit === selected[0].suit);
         if (isSameSuit) {
@@ -154,17 +174,18 @@ export function usePlayer({
 
         // check if the selected cards can be added to the existing submitted cards
         const canBeAdded = selected.every((card) => {
-            const sameCard = submitted.find((c) => c.tile === card.tile);
+            const flattendSubmitted = submitted.flatMap((set) => set.cards);
+            const sameCard = flattendSubmitted.find((c) => c.tile === card.tile);
             if (!sameCard) {
                 return false;
             }
 
-            const isSequential = submitted.every((card, index) => {
+            const isSequential = flattendSubmitted.every((card, index) => {
                 if (index === 0) {
                     return true;
                 }
 
-                return card.tile === submitted[index - 1].tile + 1;
+                return card.tile === flattendSubmitted[index - 1].tile + 1;
             });
 
             if (isSequential) {
@@ -181,6 +202,24 @@ export function usePlayer({
         return alert("The cards you want to play are not different suits, in order of the same suit or on the board already!");
     }, [selected])
 
+    const score = useMemo(() => {
+        return submitted.flatMap(x => x.cards).reduce((prev, card) => {
+            if (card.number < 10) {
+                return prev + 5;
+            }
+            if (card.number === 13) {
+                return prev + 15
+            }
+            else {
+                return prev + 10
+            }
+        }, 0)
+    }, [submitted])
+
+    const setCards = useCallback((cards: Card[]) => {
+        setDeck(cards)
+    }, [])
+
     const endTurn = () => setState('WAITING')
     const startTurn = () => setState('DRAWING')
     const selectingTurn = () => setState('SELECTING')
@@ -191,6 +230,7 @@ export function usePlayer({
         state,
         deck,
         submitted,
+        score,
 
         initializeDeck,
         endTurn,
@@ -198,6 +238,7 @@ export function usePlayer({
         selectingTurn,
         discardingTurn,
         playingTurn,
+        setCards,
 
         // Actions
         selected,

@@ -25,7 +25,7 @@ export default function CardElement({
     suit: 'spades' | 'hearts' | 'clubs' | 'diamonds',
     onClick?: () => void,
     className?: string
-    style: React.CSSProperties | null
+    style?: React.CSSProperties | null
 }) {
     const sizedWidth = size * cardDefaults.aspectRatio
     const sizedHeight = size

@@ -5,4 +5,8 @@ export interface Card {
     number: number;
 }
 
+export type SubmittedCard = {
+    cards: Card[];
+}
+
 export type PlayerState = 'DRAWING' | 'SELECTING' | 'PLAYING' | 'DISCARDING' | 'WAITING';

@@ -10,6 +10,7 @@ export default function PlayerHand({
   onClick,
   onDiscard,
   onPlay,
+  score
 }: {
   cards: Card[]
   playerName: string
@@ -18,10 +19,14 @@ export default function PlayerHand({
   onClick?: (card: Card) => void
   onDiscard?: () => void
   onPlay?: () => void
+  score: number
 }) {
   return (
     <div>
+      <div>
       <p className="font-bold">{playerName}</p>
+      <p className="font-bold">score: {score}</p>
+      </div>
       <div className='mb-4 flex gap-4'>
         {onClick && <>
           <button id="discard" onClick={onDiscard}>discard</button>

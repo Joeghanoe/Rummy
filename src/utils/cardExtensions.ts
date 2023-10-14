@@ -1,7 +1,6 @@
 import { Card } from "../@types/game";
 
-
-const minimumCards = 3;
+const minimumCardsForTurn = 3;
 
 const validateSetByTile = (cards: Card[]) => {
     // Sort the cards by tile number
@@ -17,7 +16,7 @@ const validateSetByTile = (cards: Card[]) => {
     for (const card of sortedCardsByTile) {
         // Check if the current card is the next one in the current set
         const isNextCard = currentSet && card.tile - currentSet.id === 1;
-        const isLastSet = currentSet && currentSet.cards.length < minimumCards;
+        const isLastSet = currentSet && currentSet.cards.length < minimumCardsForTurn;
 
         if (isNextCard) {
             // If the current card is the next one in the current set, add it to the set
@@ -37,13 +36,12 @@ const validateSetByTile = (cards: Card[]) => {
     }
 
     // Remove last entry if it has too few cards
-    if (currentSet && currentSet.cards.length < minimumCards) {
+    if (currentSet && currentSet.cards.length < minimumCardsForTurn) {
         cardSetsByTile.pop();
     }
 
     return cardSetsByTile;
 }
-
 
 const validateSetByNumber = (cards: Card[]) => {
     // Sort the cards by number
@@ -66,7 +64,7 @@ const validateSetByNumber = (cards: Card[]) => {
             currentSet!.card = card.card;
         } else {
             // If the current card is not the next one in the current set, start a new set
-            if (currentSet && currentSet.cards.length < minimumCards) {
+            if (currentSet && currentSet.cards.length < minimumCardsForTurn) {
                 // If the previous set had too few cards, remove it from the array
                 cardSetsByNumber.pop();
             }
@@ -78,16 +76,15 @@ const validateSetByNumber = (cards: Card[]) => {
     }
 
     // Remove last entry if it has too few cards
-    if (currentSet && currentSet.cards.length < minimumCards) {
+    if (currentSet && currentSet.cards.length < minimumCardsForTurn) {
         cardSetsByNumber.pop();
     }
 
     return cardSetsByNumber;
 }
 
-
-export const playCards = (cards: Card[]) => {
-    if (cards.length < minimumCards) {
+export const getPossibleMoves = (cards: Card[]) => {
+    if (cards.length < minimumCardsForTurn) {
         return {
             moves: []
         }
@@ -105,6 +102,8 @@ export const playCards = (cards: Card[]) => {
     // sort by number field and group them together
     const sortedRemainingCards = remainingCards.sort((a, b) => a.number - b.number)
     const cardSetsByNumber = validateSetByNumber(sortedRemainingCards)
+
+    console.log(sortedRemainingCards)
 
     return {
         moves: [

@@ -2,7 +2,7 @@
     {
         "suit": "clubs",
         "card": "ace",
-        "number": 0,
+        "number": 13,
         "tile": 0,
         "offsetX": 0,
         "offsetY": 0.75
@@ -106,7 +106,7 @@
     {
         "suit": "diamonds",
         "card": "ace",
-        "number": 0,
+        "number": 13,
         "tile": 13,
         "offsetX": 0,
         "offsetY": 0.5
@@ -210,7 +210,7 @@
     {
         "suit": "spades",
         "card": "ace",
-        "number": 0,
+        "number": 13,
         "tile": 26,
         "offsetX": 0,
         "offsetY": 0.25
@@ -314,7 +314,7 @@
     {
         "suit": "hearts",
         "card": "ace",
-        "number": 0,
+        "number": 13,
         "tile": 39,
         "offsetX": 0,
         "offsetY": 0

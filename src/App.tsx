@@ -1,3 +1,4 @@
+import { SubmittedCard } from './@types/game';
 import CardElement from './components/CardElement';
 import DrawPile from './components/DrawPile';
 import PlayerHand from './components/PlayerHand';
@@ -9,12 +10,16 @@ function App() {
   return (
     <>
       <div className="w-screen h-screen bg-green-700 flex-col flex justify-center items-center">
-      <div>Player is: '{game.player.state}'</div>
-      <div>Opponent is: '{game.opponent.state}'</div>
+        <div>Player is: '{game.player.state}'</div>
+        <div>Opponent is: '{game.opponent.state}'</div>
+        <SubmittedCards
+          sets={game.opponent.submitted}
+        />
         <PlayerHand
           playerName="Opponent"
           selectedCards={game.opponent.selected.map((card) => card.tile)}
-          cards={game.opponent.deck} />
+          cards={game.opponent.deck}
+          score={game.opponent.score} />
 
         <div className="my-8 w-full max-w-2xl flex">
           <DrawPile onClick={() => game.player.drawCard(game.stack)} />
@@ -23,6 +28,7 @@ function App() {
             {game.discardStack.map((card, index) => {
               return (
                 <CardElement
+                  onClick={() => game.getCardsFromDiscardStack(index)}
                   style={{ left: index * 30 }}
                   className='absolute'
                   key={`card-${index}`}
@@ -50,9 +56,44 @@ function App() {
               game.player.selectCard(card.tile)
             }
           }}
+          score={game.player.score}
           cards={game.player.deck} />
+
+        <SubmittedCards
+          sets={game.player.submitted}
+        />
       </div>
     </>
+  )
+}
+
+function SubmittedCards({
+  sets
+}: {
+  sets: SubmittedCard[]
+}) {
+  return (
+    <div className='mt-8 w-full flex items-center flex-col'>
+      <p>Submitted cards</p>
+      <div className='flex flex-row gap-8 mt-2'>
+        {sets.map((set, index) => {
+          return (
+            <div key={`set-${index}`} className='flex flex-row gap-2'>
+              {set.cards.map((card, index) => {
+                return (
+                  <CardElement
+                    key={`card-set-${index}`}
+                    card={card.card}
+                    size={110}
+                    suit={card.suit}
+                  />
+                )
+              })}
+            </div>
+          )
+        })}
+      </div>
+    </div>
   )
 }
 
