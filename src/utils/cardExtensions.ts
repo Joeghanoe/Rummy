@@ -103,8 +103,6 @@ export const getPossibleMoves = (cards: Card[]) => {
     const sortedRemainingCards = remainingCards.sort((a, b) => a.number - b.number)
     const cardSetsByNumber = validateSetByNumber(sortedRemainingCards)
 
-    console.log(sortedRemainingCards)
-
     return {
         moves: [
             ...cardSetsByTile,
@@ -112,77 +110,3 @@ export const getPossibleMoves = (cards: Card[]) => {
         ],
     }
 }
-
-// const dummyCards = [
-//     {
-//         "suit": "clubs",
-//         "card": "three",
-//         "tile": 2,
-//         "number": 3
-//     },
-//     {
-//         "suit": "clubs",
-//         "card": "six",
-//         "tile": 5,
-//         "number": 6
-//     },
-//     {
-//         "suit": "diamonds",
-//         "card": "five",
-//         "tile": 17,
-//         "number": 5
-//     },
-//     {
-//         "suit": "spades",
-//         "card": "queen",
-//         "tile": 37,
-//         "number": 11
-//     },
-//     {
-//         "suit": "diamonds",
-//         "card": "queen",
-//         "tile": 24,
-//         "number": 11
-//     },
-//     {
-//         "suit": "clubs",
-//         "card": "ace",
-//         "tile": 0,
-//         "number": 0
-//     },
-//     {
-//         "suit": "clubs",
-//         "card": "two",
-//         "tile": 1,
-//         "number": 2
-//     },
-//     {
-//         "suit": "clubs",
-//         "card": "ten",
-//         "tile": 9,
-//         "number": 10
-//     },
-//     {
-//         "suit": "clubs",
-//         "card": "jack",
-//         "tile": 10,
-//         "number": 10
-//     },
-
-//     {
-//         "suit": "hearts",
-//         "card": "jack",
-//         "tile": 49,
-//         "number": 10
-//     },
-//     {
-//         "suit": "hearts",
-//         "card": "queen",
-//         "tile": 50,
-//         "number": 11
-//     },
-// ] as Card[]
-// const cards = playCards(dummyCards)
-// cards.moves.forEach((cards) => {
-//     console.log(cards.cards)
-// });

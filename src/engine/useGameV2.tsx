@@ -30,7 +30,7 @@ function shuffle(array: Card[]) {
     return array;
 }
 
-const initialHandCount = 10;
+const initialHandCount = 5;
 
 export function useGameV2() {
     // Constants
@@ -63,6 +63,8 @@ export function useGameV2() {
         const cards = [...discardSlice, ...player.deck];
         const moves = getPossibleMoves(cards);
         const move = moves.moves.find(() => true);
+
+        console.log(move && move?.cards.length > 0)
 
         if(move && move?.cards.length > 0){
             player.setCards(cards);
