@@ -2,7 +2,7 @@
 import { expect, test } from "bun:test";
 import { Card, CardNumber, CardSuit } from "../../src/@types/game";
 import cardsData from "../../src/constants/cardsheet.json";
-import { getPossibleMoves } from "../../src/utils/cardExtensions";
+import { CardExtensions } from "../../src/utils/cardExtensions";
 
 const getCard = (suit: CardSuit, number: CardNumber) =>
     cardsData.find(c => c.suit === suit && c.card === number) as Card;
@@ -12,7 +12,7 @@ test("getAllPossibleMoves with no cards", () => {
     const data = []
 
     // Act
-    const result = getPossibleMoves(data)
+    const result = CardExtensions.getPossibleMoves(data)
 
     // Assert
     expect(result).toStrictEqual({
@@ -27,7 +27,7 @@ test("getAllPossibleMoves with one card", () => {
     ]
 
     // Act
-    const result = getPossibleMoves(data)
+    const result = CardExtensions.getPossibleMoves(data)
 
     // Assert
     expect(result).toStrictEqual({
@@ -43,7 +43,7 @@ test("getAllPossibleMoves with two different cards", () => {
     ]
 
     // Act
-    const result = getPossibleMoves(data)
+    const result = CardExtensions.getPossibleMoves(data)
 
     // Assert
     expect(result).toStrictEqual({
@@ -59,7 +59,7 @@ test("getAllPossibleMoves with two of the same card.", () => {
     ]
 
     // Act
-    const result = getPossibleMoves(data)
+    const result = CardExtensions.getPossibleMoves(data)
 
     // Assert
     expect(result).toStrictEqual({
@@ -76,7 +76,7 @@ test("getAllPossibleMoves with three cards of different suits.", () => {
     ]
 
     // Act
-    const result = getPossibleMoves(data)
+    const result = CardExtensions.getPossibleMoves(data)
 
     // Assert
     expect(result).toStrictEqual({
@@ -101,7 +101,7 @@ test("getAllPossibleMoves with three cards of different suits and one of a diffe
     ]
 
     // Act
-    const result = getPossibleMoves([...data, ...differentCards])
+    const result = CardExtensions.getPossibleMoves([...data, ...differentCards])
 
     // Assert
     expect(result).toStrictEqual({
@@ -124,7 +124,7 @@ test("getAllPossibleMoves with four cards of the same suit and consecutive numbe
     ]
 
     // Act
-    const result = getPossibleMoves(data)
+    const result = CardExtensions.getPossibleMoves(data)
 
     // Assert
     expect(result).toStrictEqual({
@@ -147,7 +147,7 @@ test("getAllPossibleMoves with four cards of the same suit and non-consecutive n
     ]
 
     // Act
-    const result = getPossibleMoves(data)
+    const result = CardExtensions.getPossibleMoves(data)
 
     // Assert
     expect(result).toStrictEqual({
@@ -166,7 +166,7 @@ test("getAllPossibleMoves with five cards of the same suit and consecutive numbe
     ]
 
     // Act
-    const result = getPossibleMoves(data)
+    const result = CardExtensions.getPossibleMoves(data)
 
     // Assert
     expect(result).toStrictEqual({
@@ -192,7 +192,7 @@ test("getAllPossibleMoves with five cards forming a single pair of three of the 
     ]
 
     // Act
-    const result = getPossibleMoves([...firstSet, ...secondSet])
+    const result = CardExtensions.getPossibleMoves([...firstSet, ...secondSet])
 
     // Assert
     expect(result).toStrictEqual({
@@ -217,7 +217,7 @@ test("getAllPossibleMoves with cards of consective order and a set of cards with
     ]
 
     // Act
-    const result = getPossibleMoves(data)
+    const result = CardExtensions.getPossibleMoves(data)
 
     // Assert
     expect(result).toStrictEqual({
@@ -240,4 +240,39 @@ test("getAllPossibleMoves with cards of consective order and a set of cards with
             }
         ]
     });
+})
+
+test("initialize returns a deck of 52 cards", () => {
+    // Arrange
+    const expected = 52
+
+    // Act
+    const result = CardExtensions.initialize()
+
+    // Assert
+    expect(result.length).toBe(expected)
+})
+
+test("initialize returns a deck of 52 cards with no duplicates", () => {
+    // Arrange
+    const expected = 52
+
+    // Act
+    const result = CardExtensions.initialize()
+
+    // Assert
+    expect(result.length).toBe(expected)
+    expect(result).toStrictEqual([...new Set(result)])
+})
+
+test("getHand returns a hand of the default amount of cards", () => {
+    // Arrange
+    const cards = CardExtensions.initialize()
+    const totalCards = cards.length;
+
+    // Act
+    const result = CardExtensions.getHand(cards)
+
+    // Assert
+    expect(totalCards).toBe(cards.length + result.length)
 })
