@@ -33,14 +33,9 @@ export abstract class PlayerExtensions {
             throw new Error(`There are no cards to draw.`)
         }
 
-        const next = cards.pop();
-        if (!next) {
-            throw new Error(`There are no cards to draw.`)
-        }
-
         return {
             state: 'SELECTING',
-            card: next,
+            card: cards.pop(),
             cards: cards,
         }
     }
@@ -74,7 +69,7 @@ export abstract class PlayerExtensions {
         return {
             state: 'DISCARDING',
             card: card,
-            cards: cards,
+            cards: cards.filter((_, index) => index !== currentCardIndex)
         }
     }
 
@@ -128,43 +123,44 @@ export abstract class PlayerExtensions {
     }
 
     private static isAdditional = (cards: Card[], submitted: SubmittedCard[]): boolean => {
-        return cards.every((card) => {
-            const flattendSubmitted = submitted.flatMap((set) => set.cards);
-            const sameCard = flattendSubmitted.find((c) => c.tile === card.tile);
-            if (!sameCard) {
-                return false;
-            }
+        const flattendSubmitted = submitted.flatMap((set) => set.cards);
+        const combinedCards = [...cards, ...flattendSubmitted];
 
-            const isSequential = flattendSubmitted.every((card, index) => {
-                if (index === 0) {
-                    return true;
-                }
-
-                return card.tile === flattendSubmitted[index - 1].tile + 1;
-            });
-
-            if (isSequential) {
-                return true;
-            }
-
+        if(combinedCards.length < 3) {
             return false;
-        })
+        }
+
+        const isSequential = this.isSequentual(combinedCards);
+        if(isSequential) {
+            return true;
+        }
+        
+        const isSameNumber = this.isSameNumber(combinedCards);
+        if(isSameNumber) {
+            return true;
+        }
+
+        return false;
     }
 
     static validateHand(cards: Card[], submitted: SubmittedCard[]): boolean {
         if (cards.length === 0) {
             throw new Error(`There are no cards to play.`)
         }
-
         const isSameSuit = PlayerExtensions.isSameSuit(cards);
         const isSameNumber = PlayerExtensions.isSameNumber(cards);
         const isSequentual = PlayerExtensions.isSequentual(cards);
         const isAdditional = PlayerExtensions.isAdditional(cards, submitted);
+        const isMoreThanThreeCards = cards.length >= 3;
 
         // Sequential means in order of each other
-        const isSameSuitAndSequentual = isSameSuit && isSequentual;
+        const isSameSuitAndSequentual = isSameSuit && isSequentual && isMoreThanThreeCards;
         // The cards are the same number but different suits
-        const isDifferentSuitAndSameNumber = isSameNumber && !isSameSuit;
+        const isDifferentSuitAndSameNumber = isSameNumber && !isSameSuit && isMoreThanThreeCards;
+
+        // console.log(`isSameSuitAndSequentual: ${isSameSuitAndSequentual}`)
+        // console.log(`isDifferentSuitAndSameNumber: ${isDifferentSuitAndSameNumber}`)
+        // console.log(`isAdditional: ${isAdditional}`)
 
         if (isSameSuitAndSequentual || isDifferentSuitAndSameNumber || isAdditional) {
             return true
