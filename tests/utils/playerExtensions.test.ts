@@ -247,7 +247,24 @@ test("validateHand returns true when a card has already been submitted has been 
     // Arrange
     const cards = [getCard('hearts', 'five'), getCard('hearts', 'six')]
     const submitted: SubmittedCard[] = [{
-        cards: [getCard('hearts', 'two'), getCard('hearts', 'three'), getCard('hearts', 'four')] 
+        cards: [getCard('hearts', 'two'), getCard('hearts', 'three'), getCard('hearts', 'four')]
+    }]
+
+    // Act
+    const result = PlayerExtensions.validateHand(cards, submitted)
+
+    // Assert
+    expect(result).toBe(true)
+})
+
+test("validateHand returns true when a card of the same suit has already been submitted has been played", () => {
+    // Arrange
+    const cards = [getCard("clubs", "ten")]
+    const submitted: SubmittedCard[] = [{
+        cards: [getCard("diamonds", "six"), getCard("diamonds", "seven"), getCard("diamonds", "eight")]
+    },
+    {
+        cards: [getCard("diamonds", "ten"), getCard("spades", "ten"), getCard("hearts", "ten")]
     }]
 
     // Act

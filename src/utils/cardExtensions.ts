@@ -50,6 +50,8 @@ export abstract class CardExtensions {
         // Sort the cards by number
         const sortedCardsByNumber = cards.sort((a, b) => a.number - b.number)
 
+        console.log(sortedCardsByNumber)
+
         // Initialize an empty array to hold sets of cards with the same tile number
         const cardSetsByNumber: { card: string; cards: Card[] }[] = [];
 
@@ -108,6 +110,7 @@ export abstract class CardExtensions {
             suit: card.suit,
             card: card.card,
             tile: card.tile,
+            number: card.number,
         }) as Card);
         return this.shuffle(cards);
     }
@@ -121,7 +124,7 @@ export abstract class CardExtensions {
 
         // Initialize an empty array to hold sets of cards with the same tile number
         const cardSetsByTile = this.validateSetByTile(cards)
-
+    
         // remove all cards that are in the cardSets.sets from the sortedCards
         const remainingCards = cards.filter((card) => {
             const isSet = cardSetsByTile.some((set) => set.cards.some((setCard) => setCard.tile === card.tile));

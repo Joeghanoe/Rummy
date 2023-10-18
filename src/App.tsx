@@ -6,6 +6,15 @@ import { useGameV2 } from './engine/useGameV2';
 
 function App() {
   const game = useGameV2();
+  
+  console.log(JSON.stringify({
+    game: game.stack,
+    player: game.player.deck,
+    playerSubmitted: game.player.submitted,
+    opponent: game.opponent.deck,
+    opponentSubmitted: game.opponent.submitted,
+    discards: game.discardStack,
+  }))
 
   return (
     <>
@@ -16,11 +25,12 @@ function App() {
           playerName='Opponent'
           sets={game.opponent.submitted}
         />
-        {/* <PlayerHand
+        
+        <PlayerHand
           playerName="Opponent"
           selectedCards={game.opponent.selected.map((card) => card.tile)}
           cards={game.opponent.deck}
-          score={game.opponent.score} /> */}
+          score={game.opponent.score} />
 
         <div className="my-8 w-full max-w-2xl flex">
           <DrawPile onClick={() => game.player.drawCard(game.stack)} />

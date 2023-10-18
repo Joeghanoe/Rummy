@@ -28,6 +28,7 @@ export function useGameV2() {
         if(player.state === 'WAITING') {
             return alert('Not your turn')
         }
+
         const discardSlice = discardStack.slice(index, discardStack.length);
         const cards = [...discardSlice, ...player.deck];
         const moves = CardExtensions.getPossibleMoves(cards);
@@ -38,7 +39,6 @@ export function useGameV2() {
             player.selectingTurn();
             setDiscardStack((cards) => cards.slice(0, index));
         }
-
 
     }, [discardStack, player.deck, player.state])
 

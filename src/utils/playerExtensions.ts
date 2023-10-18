@@ -124,22 +124,19 @@ export abstract class PlayerExtensions {
 
     private static isAdditional = (cards: Card[], submitted: SubmittedCard[]): boolean => {
         const flattendSubmitted = submitted.flatMap((set) => set.cards);
-        const combinedCards = [...cards, ...flattendSubmitted];
-
-        if(combinedCards.length < 3) {
+        if(flattendSubmitted.length < 3) {
             return false;
         }
 
-        const isSequential = this.isSequentual(combinedCards);
+        var isSequential = submitted.some((set) => this.isSequentual([...set.cards, ...cards]))
         if(isSequential) {
             return true;
         }
         
-        const isSameNumber = this.isSameNumber(combinedCards);
+        var isSameNumber = submitted.some((set) => this.isSameNumber([...set.cards, ...cards]))
         if(isSameNumber) {
             return true;
         }
-
         return false;
     }
 
@@ -157,10 +154,6 @@ export abstract class PlayerExtensions {
         const isSameSuitAndSequentual = isSameSuit && isSequentual && isMoreThanThreeCards;
         // The cards are the same number but different suits
         const isDifferentSuitAndSameNumber = isSameNumber && !isSameSuit && isMoreThanThreeCards;
-
-        // console.log(`isSameSuitAndSequentual: ${isSameSuitAndSequentual}`)
-        // console.log(`isDifferentSuitAndSameNumber: ${isDifferentSuitAndSameNumber}`)
-        // console.log(`isAdditional: ${isAdditional}`)
 
         if (isSameSuitAndSequentual || isDifferentSuitAndSameNumber || isAdditional) {
             return true

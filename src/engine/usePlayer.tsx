@@ -46,8 +46,6 @@ export function usePlayer({
             playerName
         );
 
-        console.log(cards, card)
-
         setState(nextState)
         setDeck((cards) => cards.filter((x) => x.tile !== tile));
         discardCard(card!)
