@@ -1,8 +1,9 @@
+import { useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Card, PlayerState } from "../@types/game";
-import CardElement from "./CardElement";
+import CardElement, { cardDefaults } from "./CardElement";
 
-const cardWidth = 110;
+const cardSize = 150;
 
 export default function PlayerHand({
   cards,
@@ -23,6 +24,33 @@ export default function PlayerHand({
   onPlay?: () => void
   score: number
 }) {
+  const [hoveredCardIndex, setHoveredCardIndex] = useState<number>(-1);
+
+  const cardElements = useMemo(() => {
+    return cards.map((card, index) => {
+      const left = index * cardSize / 4;
+      const isHovered = hoveredCardIndex === index;
+      return (
+        <CardElement
+          index={index}
+          key={`${card.suit}-${card.card}-${index}`}
+          size={cardSize}
+          card={card.card}
+          suit={card.suit}
+          onClick={() => onClick && onClick(card)}
+          style={{
+            left: isHovered ? `${left}px` : `${left + cardSize / 10}px`,
+          }}
+          className={twMerge(
+            state === 'SELECTING' && 'cursor-pointer',
+            selectedCards.includes(card.tile) && '-translate-y-2',
+            'transition-all origin-bottom absolute top-0'
+          )}
+        />
+      )
+    })
+  }, [hoveredCardIndex, cards, selectedCards, state])
+
   return (
     <div>
       <div>
@@ -36,25 +64,25 @@ export default function PlayerHand({
         </>}
       </div>
       <div
+        onMouseOver={(e) => {
+          const svgElement = e.target as HTMLDivElement
+          // @ts-ignore
+          const number = parseInt(svgElement.id);
+          if(!isNaN(number)) {
+            setHoveredCardIndex(number)
+          }
+        }}
+        onMouseOut={() => {
+          setHoveredCardIndex(-1)
+        }}
         id="player-1-card-grid"
-        className="relative h-28 mx-auto w-full flex flex-row justify-center items-center"
+        style={{
+          height: cardSize,
+          width: (cardSize / 4) * cards.length + ((cardSize * cardDefaults.aspectRatio) - 20)
+        }}
+        className="relative mx-auto"
       >
-        {cards.map((card, index) => {
-          return (
-            <CardElement
-              key={`${card.suit}-${card.card}-${index}`}
-              size={cardWidth}
-              card={card.card}
-              suit={card.suit}
-              onClick={() => onClick && onClick(card)}
-              className={twMerge(
-                state === 'SELECTING' && 'cursor-pointer hover:scale-105',
-                selectedCards.includes(card.tile) && '-translate-y-2',
-                'transition-all origin-bottom'
-              )}
-            />
-          )
-        })}
+        {cardElements}
       </div>
     </div>
   )

@@ -3,7 +3,7 @@ import data from '../constants/cardsheet.json';
 
 export abstract class CardExtensions {
     private static minimumCardsForTurn: number = 3;
-    private static defaultHandSize: number = 5;
+    private static defaultHandSize: number = 20;
 
     private static validateSetByTile(cards: Card[]) {
         // Sort the cards by tile number
@@ -49,8 +49,6 @@ export abstract class CardExtensions {
     private static validateSetByNumber(cards: Card[]) {
         // Sort the cards by number
         const sortedCardsByNumber = cards.sort((a, b) => a.number - b.number)
-
-        console.log(sortedCardsByNumber)
 
         // Initialize an empty array to hold sets of cards with the same tile number
         const cardSetsByNumber: { card: string; cards: Card[] }[] = [];

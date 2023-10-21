@@ -21,7 +21,7 @@ export function usePlayer({
     ], [])
 
     const drawCard = useCallback((stack: Card[]) => {
-        try{
+        try {
             const result = PlayerExtensions.drawCard(
                 stack,
                 state,
@@ -32,7 +32,7 @@ export function usePlayer({
             setDeck((deck) => [...deck, result.card!]);
             setState(result.state);
         }
-        catch(e){
+        catch (e) {
             setState('SELECTING');
         }
     }, [state])
@@ -47,7 +47,7 @@ export function usePlayer({
         );
 
         setState(nextState)
-        setDeck((cards) => cards.filter((x) => x.tile !== tile));
+        setDeck(cards);
         discardCard(card!)
         setSelected([])
     }, [state, deck])
@@ -97,8 +97,8 @@ export function usePlayer({
         setDeck((deck) => deck.filter((card) => !selected.includes(card)));
     }, [])
 
-    const play = useCallback(() => {
-        const isValid = PlayerExtensions.validateHand(selected, submitted);
+    const play = useCallback((opponentSubmitted: SubmittedCard[]) => {
+        const isValid = PlayerExtensions.validateHand(selected, [...submitted, ...opponentSubmitted]);
         if (!isValid) {
             return alert("The cards you want to play are not different suits, in order of the same suit or on the board already!");
         }

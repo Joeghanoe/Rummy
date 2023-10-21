@@ -14,9 +14,6 @@ export abstract class DiscardExtensions {
 
         if(move && move?.cards.length > 0){
             return true
-            // player.setCards(combinedCards);
-            // player.selectingTurn();
-            // setDiscardStack((combinedCards) => combinedCards.slice(0, index));
         }
         return false;
     }
