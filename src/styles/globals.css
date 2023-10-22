@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'BB Strata Pro SEF';
+    src: url('BBStrataProSEF-Bold.eot');
+    src: local('BB Strata Pro SEF Bold'), local('BBStrataProSEF-Bold'),
+        url('BBStrataProSEF-Bold.eot?#iefix') format('embedded-opentype'),
+        url('BBStrataProSEF-Bold.woff2') format('woff2'),
+        url('BBStrataProSEF-Bold.woff') format('woff'),
+        url('BBStrataProSEF-Bold.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    font-family: 'BB Strata Pro SEF', sans-serif;
+}

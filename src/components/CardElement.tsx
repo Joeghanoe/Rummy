@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge';
 import { Card } from '../@types/game';
 import cardsdata from '../constants/cardsheet.json';
 
-const cardDefaults = {
+export const cardDefaults = {
     aspectRatio: 180 / 263,
     visualMapping: {
         "clubs": "-3%",
@@ -18,14 +18,16 @@ export default function CardElement({
     suit,
     onClick,
     className,
-    style
+    style,
+    index
 }: {
     size: number
     card: string
     suit: 'spades' | 'hearts' | 'clubs' | 'diamonds',
     onClick?: () => void,
     className?: string
-    style?: React.CSSProperties | null
+    style?: React.CSSProperties
+    index?: number
 }) {
     const sizedWidth = size * cardDefaults.aspectRatio
     const sizedHeight = size
@@ -35,6 +37,7 @@ export default function CardElement({
 
     return (
         <svg 
+            id={index?.toString() ?? "-1"}
             width={sizedWidth} 
             height={sizedHeight} 
             onClick={onClick} 

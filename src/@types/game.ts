@@ -1,9 +1,12 @@
 export interface Card {
-    suit: 'clubs' | 'diamonds' | 'spades' | 'hearts';
-    card: string;
+    suit: CardSuit;
+    card: CardNumber;
     tile: number;
     number: number;
 }
+
+export type CardSuit = 'clubs' | 'diamonds' | 'spades' | 'hearts';
+export type CardNumber = 'ace' | 'two' | 'three' | 'four' | 'five' | 'six' | 'seven' | 'eight' | 'nine' | 'ten' | 'jack' | 'queen' | 'king';
 
 export type SubmittedCard = {
     cards: Card[];
