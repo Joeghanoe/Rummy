@@ -1,9 +1,8 @@
 import { useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Card, PlayerState } from "../@types/game";
+import { CardExtensions } from '../utils/cardExtensions';
 import CardElement, { cardDefaults } from "./CardElement";
-
-const cardSize = 150;
 
 export default function PlayerHand({
   cards,
@@ -27,23 +26,27 @@ export default function PlayerHand({
   const [hoveredCardIndex, setHoveredCardIndex] = useState<number>(-1);
 
   const cardElements = useMemo(() => {
+    const canHover = state === 'WAITING' || state === 'DRAWING';
+
     return cards.map((card, index) => {
-      const left = index * cardSize / 4;
-      const isHovered = hoveredCardIndex === index;
+      const left = index * CardExtensions.size / 4;
+      const isHovered = !canHover && (hoveredCardIndex === index);
+      const isSelected = selectedCards.includes(card.tile) && '-translate-y-2';
+
       return (
         <CardElement
           index={index}
           key={`${card.suit}-${card.card}-${index}`}
-          size={cardSize}
+          size={CardExtensions.size}
           card={card.card}
           suit={card.suit}
           onClick={() => onClick && onClick(card)}
           style={{
-            left: isHovered ? `${left}px` : `${left + cardSize / 10}px`,
+            left: isHovered && !isSelected ? `${left}px` : `${left + CardExtensions.size / 10}px`,
           }}
           className={twMerge(
             state === 'SELECTING' && 'cursor-pointer',
-            selectedCards.includes(card.tile) && '-translate-y-2',
+            isSelected && '-translate-y-2',
             'transition-all origin-bottom absolute top-0'
           )}
         />
@@ -77,8 +80,8 @@ export default function PlayerHand({
         }}
         id="player-1-card-grid"
         style={{
-          height: cardSize,
-          width: (cardSize / 4) * cards.length + ((cardSize * cardDefaults.aspectRatio) - 20)
+          height: CardExtensions.size,
+          width: (CardExtensions.size / 4) * cards.length + ((CardExtensions.size * cardDefaults.aspectRatio) - 20)
         }}
         className="relative mx-auto"
       >

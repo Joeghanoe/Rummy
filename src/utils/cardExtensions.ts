@@ -3,7 +3,9 @@ import data from '../constants/cardsheet.json';
 
 export abstract class CardExtensions {
     private static minimumCardsForTurn: number = 3;
-    private static defaultHandSize: number = 20;
+    private static defaultHandSize: number = 7;
+
+    static size = 180;
 
     private static validateSetByTile(cards: Card[]) {
         // Sort the cards by tile number

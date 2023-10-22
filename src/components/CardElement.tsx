@@ -27,7 +27,7 @@ export default function CardElement({
     onClick?: () => void,
     className?: string
     style?: React.CSSProperties
-    index: number
+    index?: number
 }) {
     const sizedWidth = size * cardDefaults.aspectRatio
     const sizedHeight = size
@@ -37,7 +37,7 @@ export default function CardElement({
 
     return (
         <svg 
-            id={index?.toString() ?? 0}
+            id={index?.toString() ?? "-1"}
             width={sizedWidth} 
             height={sizedHeight} 
             onClick={onClick} 

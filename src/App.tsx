@@ -38,7 +38,7 @@ function App() {
   return (
     <>
       <div className="w-screen h-screen bg-green-700 flex-col flex justify-center items-center">
-        <div className='w-full h-full mx-auto max-w-6xl relative grid grid-cols-8'>
+        <div className='w-full h-full mx-auto max-w-screen-2xl relative grid grid-cols-8'>
           <div className='col-span-2 bg-zinc-700 border-x-blue-500 border-x-2 flex flex-col px-1 py-16 gap-1 text-white font-bold '>
 
             <div className='flex justify-center bg-blue-500/80 py-1 rounded-lg border-zinc-900 border-2 shadow-lg text-2xl'>
@@ -56,7 +56,7 @@ function App() {
             </div>
 
           </div>
-          <div className='col-span-6'>
+          <div className='col-span-6 px-6'>
             <SubmittedCards
               playerName='Opponent'
               sets={game.opponent.submitted}
