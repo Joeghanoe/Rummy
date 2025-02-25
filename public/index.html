@@ -1,0 +1,266 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rummy Card Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .screen {
+      display: none;
+    }
+    
+    #error-message {
+      background-color: #ffdddd;
+      color: #990000;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      display: none;
+    }
+    
+    .card {
+      display: inline-block;
+      width: 80px;
+      height: 120px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin: 5px;
+      position: relative;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .card.selected {
+      border: 2px solid blue;
+      transform: translateY(-10px);
+    }
+    
+    .card.empty {
+      color: #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .card .rank {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    .card .suit {
+      font-size: 40px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .card.red {
+      color: red;
+    }
+    
+    .card.black {
+      color: black;
+    }
+    
+    #hand-container {
+      margin-top: 20px;
+      min-height: 130px;
+      border: 1px dashed #ccc;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    
+    .game-area {
+      display: flex;
+      margin-top: 20px;
+    }
+    
+    .game-info {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #eee;
+      border-radius: 5px;
+    }
+    
+    .game-actions {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
+    
+    .action-btn {
+      margin: 5px;
+      padding: 8px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .action-btn:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    
+    #turn-indicator {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    
+    #turn-indicator.my-turn {
+      color: green;
+    }
+    
+    .current-player {
+      font-weight: bold;
+    }
+    
+    .active-player {
+      color: green;
+    }
+    
+    #result-message {
+      font-size: 24px;
+      text-align: center;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    
+    #result-message.winner {
+      background-color: #dff0d8;
+      color: #3c763d;
+    }
+    
+    #result-message.loser {
+      background-color: #f2dede;
+      color: #a94442;
+    }
+  </style>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <h1>Rummy Card Game</h1>
+  
+  <div id="error-message"></div>
+  
+  <!-- Lobby Screen -->
+  <div id="lobby" class="screen">
+    <h2>Welcome to Rummy</h2>
+    <div>
+      <button id="create-game-btn">Create New Game</button>
+    </div>
+    <div id="game-id-container" style="margin-top: 20px; display: none;">
+      <p>Game created! Share this ID with your friends:</p>
+      <h3 id="game-id-display"></h3>
+    </div>
+    
+    <hr>
+    
+    <h3>Active Games</h3>
+    <div class="active-games-container">
+      <div class="active-games-header">
+        <h4>Join an existing game:</h4>
+        <button id="refresh-games-btn">Refresh</button>
+      </div>
+      <ul id="active-games-list">
+        <li>Loading games...</li>
+      </ul>
+    </div>
+    
+    <hr>
+    
+    <h3>Join by Game ID</h3>
+    <form id="join-game-form">
+      <div>
+        <label for="game-id-input">Game ID:</label>
+        <input type="text" id="game-id-input" required>
+      </div>
+      <div style="margin-top: 10px;">
+        <label for="player-name-input">Your Name (optional):</label>
+        <input type="text" id="player-name-input" placeholder="Random name will be used if empty">
+      </div>
+      <button type="submit" style="margin-top: 10px;">Join Game</button>
+    </form>
+  </div>
+
+  
+  <!-- Waiting Room Screen -->
+  <div id="waiting-room" class="screen">
+    <h2>Waiting for Players</h2>
+    <p>Game ID: <span id="waiting-game-id"></span></p>
+    <h3>Players:</h3>
+    <ul id="player-list"></ul>
+    <button id="start-game-btn" style="display: none;">Start Game</button>
+  </div>
+  
+  <!-- Game Screen -->
+  <div id="game" class="screen">
+    <h2>Rummy Game</h2>
+    
+    <div id="turn-indicator">Waiting for game to start...</div>
+    
+    <div class="game-area">
+      <div class="game-info">
+        <h3>Game Info</h3>
+        <div id="deck-count">Cards in deck: 0</div>
+        <h4>Players:</h4>
+        <ul id="game-player-list"></ul>
+        <h4>Discard Pile:</h4>
+        <div id="discard-pile-container">
+          <div id="discard-pile">
+            <div class="card empty">Empty</div>
+          </div>
+          <p class="discard-help">
+            Top card: Free to pick up<br>
+            Other cards: Must form a valid meld (3+ cards)
+          </p>
+        </div>
+      </div>
+      
+      <div class="game-actions">
+        <h3>Actions</h3>
+        <button id="draw-deck-btn" class="action-btn">Draw from Deck</button>
+        <button id="draw-discard-btn" class="action-btn">Draw from Discard</button>
+        <button id="discard-btn" class="action-btn">Discard Selected Card</button>
+        <button id="go-out-btn" class="action-btn">Go Out (Declare Win)</button>
+      </div>
+    </div>
+    
+    <h3>Your Hand:</h3>
+    <div id="hand-container"></div>
+  </div>
+  
+  <!-- Game Result Screen -->
+  <div id="game-result" class="screen">
+    <h2>Game Over</h2>
+    <div id="result-message"></div>
+    <button id="back-to-lobby-btn">Back to Lobby</button>
+  </div>
+  
+  <script src="/static/js/game.js"></script>
+</body>
+</html>
